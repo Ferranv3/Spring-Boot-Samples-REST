@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,10 @@ public class AstroPic {
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Long id;
   private String date;
+
+  @Column(columnDefinition = "LONGTEXT")
   private String explanation;
+  
   private String hdurl;
   private String url;
   private String title;
