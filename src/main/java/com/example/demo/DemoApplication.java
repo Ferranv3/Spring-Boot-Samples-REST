@@ -55,7 +55,7 @@ public class DemoApplication {
     };
   }*/
 
-  @Bean
+  /*@Bean
   	public CommandLineRunner demo(AstroPicRepository repository) {
     return (args) -> {
       // save a few customers String date, String explanation, String hdurl, String url, String title
@@ -77,7 +77,7 @@ public class DemoApplication {
       }
       log.info("");
     };
-  }
+  }*/
 
   @Bean
   public RestTemplate getRestTemplate(){
