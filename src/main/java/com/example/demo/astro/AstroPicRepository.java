@@ -1,4 +1,3 @@
-
 package com.example.demo.astro;
 
 import org.springframework.data.repository.CrudRepository;
