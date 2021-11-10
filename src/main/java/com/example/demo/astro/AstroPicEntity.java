@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class AstroPic {
+public class AstroPicEntity {
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,9 +22,9 @@ public class AstroPic {
   private String title;
   private String mediaType;
 
-  protected AstroPic() {}
+  protected AstroPicEntity() {}
 
-  public AstroPic(String date, String explanation, String hdurl, String url, String title, String mediaType) {
+  public AstroPicEntity(String date, String explanation, String hdurl, String url, String title, String mediaType) {
     this.date = date;
     this.explanation = explanation;
     this.hdurl = hdurl;

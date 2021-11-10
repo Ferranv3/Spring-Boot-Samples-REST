@@ -17,7 +17,7 @@ public class CalculatorController {
         @RequestParam(name="op", required=false, defaultValue="0") String operator, 
         @RequestParam(name="operation", required=false, defaultValue="") String operation, 
         Model model) {
-            CalculatorEngine ce = new CalculatorEngine();
+            CalculatorService ce = new CalculatorService();
             if(!operation.equals("")){
                 System.out.println("operation: " + operation);
                 for (int i = 0; i < operation.length(); i++) {

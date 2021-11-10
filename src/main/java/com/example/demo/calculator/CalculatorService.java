@@ -8,14 +8,14 @@ enum State {
     ERROR
 }
 
-public class CalculatorEngine {
+public class CalculatorService {
     State currentState = State.INIT;
     int firstFigure = 0;
     int secondFigure = 0;
     float result = 0.0f;
     char operation = ' ';
 
-    CalculatorEngine() {
+    CalculatorService() {
     }
 
     public void handleNumber(int number) {

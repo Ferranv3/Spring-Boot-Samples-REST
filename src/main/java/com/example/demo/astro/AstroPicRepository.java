@@ -3,6 +3,6 @@ package com.example.demo.astro;
 
 import org.springframework.data.repository.CrudRepository;
     
-public interface AstroPicRepository extends CrudRepository<AstroPic, Long> {
-    AstroPic findById(long id);
+public interface AstroPicRepository extends CrudRepository<AstroPicEntity, Long> {
+    AstroPicEntity findById(long id);
 }
