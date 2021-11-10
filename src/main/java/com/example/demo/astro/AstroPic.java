@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.astro;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.astro.AstroPic;
+import com.example.demo.astro.AstroPicRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
