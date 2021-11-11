@@ -13,17 +13,17 @@ It contains a Spring Boot back-end with many endpoints. A calculator, a Nasa ima
 Install scoop or cholocatey in Windows to easily the process.
 
 ### Instalar OpenJDK:
-scoop install openjdk17
-choco install openjdk17
+* scoop install openjdk17
+* choco install openjdk17
 
 to verify use command: javac --version
 
 ### Install Maven
-scoop install maven
-choco install maven
+* scoop install maven
+* choco install maven
 
 to verify use command: mvn --version
 
 ## Run:
-Execute this order in root project folder -> .\mvnw spring-boot:run
-Maven cleaning -> mvn clean
+* Execute this order in root project folder -> .\mvnw spring-boot:run
+* Maven cleaning -> mvn clean
