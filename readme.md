@@ -1,6 +1,14 @@
 # Demo application using Java Spring Boot Framework and Bootstrap
 It contains a Spring Boot back-end with many endpoints. A calculator, a Nasa image viewer using an API Rest, a contact form and a collection of beers using an API Rest.
 
+## Endpoints
+http://localhost:8080/greeting?nombre=Ferran&&edad=28
+http://localhost:8080/customers
+http://localhost:8080/calculator?operation=5*2
+http://localhost:8080/astropic -> optional date search: http://localhost:8080/astropic?date=2021-11-01
+http://localhost:8080/beers
+http://localhost:8080/form
+
 ## Windows
 Install scoop or cholocatey in Windows to easily the process.
 

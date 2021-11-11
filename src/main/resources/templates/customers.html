@@ -18,8 +18,31 @@
         crossorigin="anonymous"></script>
 
     <div class="container">
+        <form action="#" th:action="@{/customers}" th:object="${customerForm}" method="post">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" th:field="*{name}" /></td>
+                    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+                </tr>
+                <tr>
+                    <td>LastName:</td>
+                    <td><input type="text" th:field="*{lastName}" /></td>
+                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName Error</td>
+                </tr>
+               <tr>
+                    <td>Email:</td>
+                    <td><input type="text" th:field="*{email}" /></td>
+                    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                    <td th:if="${mailExists} != null">Email already exists</td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Submit</button></td>
+                </tr>
+            </table>
+        </form>
         <ul class="list-group" th:each="customer: ${customers}">
-            <li class="list-group-item" th:text="${customer.getId() + '-' + customer.getFirstName() + ' ' + customer.getLastName()}" />
+            <li class="list-group-item" th:text="${customer.getId() + '-' + customer.getFirstName() + ' ' + customer.getLastName() + ' ' + customer.getEmail()}" />
         </ul>
     </div>
 </body>
