@@ -27,13 +27,13 @@ public class CustomerController {
             model.addAttribute("customers", repository.findAll());
             return "customers";
         }
-        List<Customer> customers = repository.findByEmail(customerForm.getEmail());
+        List<CustomerEntity> customers = repository.findByEmail(customerForm.getEmail());
         if(customers.size() > 0){
             model.addAttribute("mailExists", "Email already exist");
             model.addAttribute("customers", repository.findAll());
             return "customers";
         }
-        repository.save(new Customer(customerForm.getName(), customerForm.getLastName(), customerForm.getEmail()));
+        repository.save(new CustomerEntity(customerForm.getName(), customerForm.getLastName(), customerForm.getEmail()));
         return "redirect:/customers";    
     } 
 }

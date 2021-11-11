@@ -2,7 +2,8 @@ package com.example.demo;
 
 import com.example.demo.astro.AstroPicEntity;
 import com.example.demo.astro.AstroPicRepository;
-import com.example.demo.customer.*;
+import com.example.demo.customer.CustomerEntity;
+import com.example.demo.customer.CustomerRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,21 +26,21 @@ public class DemoApplication {
   	public CommandLineRunner demo(CustomerRepository repository) {
     return (args) -> {
       // save a few customers
-      repository.save(new Customer("Jack", "Bauer", "uno@gmail.com"));
-      repository.save(new Customer("Chloe", "O'Brian", "dos@gmail.com"));
-      repository.save(new Customer("Kim", "Bauer", "tres@gmail.com"));
-      repository.save(new Customer("David", "Palmer", "cuatro@gmail.com"));
-      repository.save(new Customer("Michelle", "Dessler", "cinco@gmail.com"));
+      repository.save(new CustomerEntity("Jack", "Bauer", "uno@gmail.com"));
+      repository.save(new CustomerEntity("Chloe", "O'Brian", "dos@gmail.com"));
+      repository.save(new CustomerEntity("Kim", "Bauer", "tres@gmail.com"));
+      repository.save(new CustomerEntity("David", "Palmer", "cuatro@gmail.com"));
+      repository.save(new CustomerEntity("Michelle", "Dessler", "cinco@gmail.com"));
 
       // fetch all customers
       log.info("Customers found with findAll():");
       log.info("-------------------------------");
-      for (Customer customer : repository.findAll()) {
+      for (CustomerEntity customer : repository.findAll()) {
         log.info(customer.toString());
       }
       log.info("");      
       // fetch an individual customer by ID
-      Customer customer = repository.findById(1L);
+      CustomerEntity customer = repository.findById(1L);
       log.info("Customer found with findById(1L):");
       log.info("--------------------------------");
       log.info(customer.toString());
