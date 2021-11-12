@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e5bc8234-d693-430e-a472-1e9417a0c080",
+		"_postman_id": "647f1b3e-02c9-4f13-8409-f5f0d2470671",
 		"name": "Biblioteca",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -122,7 +122,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/library/users",
+					"raw": "http://localhost:8080/api/v1/library/readers",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -132,7 +132,7 @@
 						"api",
 						"v1",
 						"library",
-						"users"
+						"readers"
 					]
 				}
 			},
@@ -145,7 +145,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\": \"Hulk\",\r\n\"lastName\": \"Hogan\",\r\n\"email\":\"hulkhogan@gmail.com\"}",
+					"raw": "{\"firstname\": \"Hulk\",\r\n\"lastName\": \"Hogan\",\r\n\"email\":\"hulkhogan@gmail.com\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -153,7 +153,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/library/users",
+					"raw": "http://localhost:8080/api/v1/library/readers",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -163,7 +163,7 @@
 						"api",
 						"v1",
 						"library",
-						"users"
+						"readers"
 					]
 				}
 			},
@@ -206,7 +206,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/library/users/8",
+					"raw": "http://localhost:8080/api/v1/library/readers/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -216,8 +216,8 @@
 						"api",
 						"v1",
 						"library",
-						"users",
-						"8"
+						"readers",
+						"1"
 					]
 				}
 			},
@@ -229,7 +229,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/library/users/8",
+					"raw": "http://localhost:8080/api/v1/library/readers/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -239,8 +239,8 @@
 						"api",
 						"v1",
 						"library",
-						"users",
-						"8"
+						"readers",
+						"1"
 					]
 				}
 			},
