@@ -1,15 +1,22 @@
 package com.example.demo.library;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-//@Table(name = "reader")
+@Table(name = "reader")
 public class ReaderEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -17,18 +24,25 @@ public class ReaderEntity {
 
     private String firstName;
     private String lastName;
-    //private List<BookEntity> bookLended;
+    private String email;
 
-    /*@OneToMany(
-        mappedBy = "reader", 
-        cascade = CascadeType.ALL)*/
+    @JsonManagedReference
+    @OneToMany(
+        mappedBy = "user", 
+        cascade = CascadeType.ALL, 
+        fetch = FetchType.EAGER,
+        orphanRemoval = true)
+    private List<BookEntity> books;
         
-    public ReaderEntity(){}
+    public ReaderEntity(){
+        this.books = new ArrayList<BookEntity>();
+    }
 
-    public ReaderEntity(String firstName, String lastName){//}, List<BookEntity> bookLended){
+    public ReaderEntity(String firstName, String lastName, String email){
         this.firstName = firstName;
         this.lastName = lastName;
-        //this.bookLended = bookLended;
+        this.email = email;
+        this.books = new ArrayList<BookEntity>();
     }
 
     public void setFirstName(String firstName){
@@ -39,9 +53,17 @@ public class ReaderEntity {
         this.lastName = lastName;
     }
 
-    /*public void setBookLended(List<BookEntity> bookLended){
-        this.bookLended = bookLended;
-    }*/
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setBooks(List<BookEntity> books){
+        this.books = books;
+    }
+
+    public void addBook(BookEntity book){
+        this.books.add(book);
+    }
 
     public Long getId(){
         return this.id;
@@ -55,7 +77,25 @@ public class ReaderEntity {
         return this.lastName;
     }
 
-    /*public List<BookEntity> getBookLended(){
-        return this.bookLended;
-    }*/
+    public String getEmail(){
+        return this.email;
+    }
+
+    public List<BookEntity> getBooks(){
+        return this.books;
+    }
+
+    @Override
+    public String toString() {
+        String myBooks = this.books.stream()
+            .map(book -> book.getTitle())
+            .reduce("", (acc, title) -> acc + title + ", ");
+        return "LibraryUserEntity{" +
+                "id=" + this.id +
+                ", name='" + this.firstName + '\'' +
+                ", lastName='" + this.lastName + '\'' +
+                ", email='" + this.email + '\'' +
+                ", books=" + this.books +
+                '}';
+    }
 }

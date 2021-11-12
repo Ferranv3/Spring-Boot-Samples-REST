@@ -2,6 +2,11 @@
 It contains a Spring Boot back-end with many endpoints. A calculator, a Nasa image viewer using an API Rest, a contact form and a collection of beers using an API Rest.
 
 ## Endpoints
+### API Rest
+* http://localhost:8080/api/v1/library/books
+* http://localhost:8080/api/v1/library/readers
+
+### API
 * http://localhost:8080/greeting?nombre=Ferran&&edad=28
 * http://localhost:8080/customers
 * http://localhost:8080/calculator?operation=5*2

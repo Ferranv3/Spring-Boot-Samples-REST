@@ -1,6 +1,8 @@
 package com.example.demo.library;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,43 +19,52 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/library/books")
 public class BookRestController {
     @Autowired
     private BookRepository repository;
 
-    @GetMapping("/books")
-    public Iterable<BookEntity> getAllBooks(){
-        return repository.findAll();
+    @GetMapping("")
+    public Iterable<BookResponse> getAllBooks(){
+        Iterable<BookResponse> books = StreamSupport.stream(repository.findAll().spliterator(), false)
+        .map(book -> new BookResponse(book.getId(),book.getIsbn(), book.getTitle(), book.getAuthor(), book.getDescription(), book.isAvailable()))
+        .collect(Collectors.toList());
+        return books;
     }
 
-    @GetMapping("/books/{id}")
-    public BookEntity getBookById(@PathVariable Long id){
-        return repository.findById(id).get();
+    @GetMapping("/{id}")
+    public BookResponse getBookById(@PathVariable Long id){
+        BookEntity book = repository.findById(id).get();
+        return new BookResponse(book.getId(),book.getIsbn(), book.getTitle(), book.getAuthor(), book.getDescription(), book.isAvailable();
     }
 
-    @GetMapping("/books/{tittle}")
-    public List<BookEntity> getByName(@PathVariable String title){
-        return repository.findByTitle(title);
+    @GetMapping("/{tittle}")
+    public List<BookResponse> getByName(@PathVariable String title){
+        List<BookResponse> books = StreamSupport.stream(repository.findAll().spliterator(), false)
+        .map(book -> new BookResponse(book.getId(),book.getIsbn(), book.getTitle(), book.getAuthor(), book.getDescription(), book.isAvailable()))
+        .collect(Collectors.toList());
+        return books;
     }
 
-    @PostMapping("/book")
+    @PostMapping("")
     @ResponseStatus(value = HttpStatus.CREATED)
     public BookEntity createBook(@RequestBody BookEntity book){
         return repository.save(book);
     }
     
-    @PutMapping("/book/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public BookEntity updateBook(@PathVariable Long isbn, @RequestBody BookEntity book){
-        BookEntity bookToUpdate = repository.findByIsbn(isbn);
+    public BookEntity updateBook(@PathVariable Long id, @RequestBody BookEntity book){
+        BookEntity bookToUpdate = repository.findById(id).get();
+        bookToUpdate.setIsbn(book.getIsbn());
         bookToUpdate.setTitle(book.getTitle());
         bookToUpdate.setAuthor(book.getAuthor());
         bookToUpdate.setDescription(book.getDescription());
+        bookToUpdate.setAvailable(book.isAvailable());
         return repository.save(bookToUpdate);
     }
 
-    @DeleteMapping("/books/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteBook(@PathVariable Long id){
         try{
             repository.deleteById(id);
@@ -64,7 +75,7 @@ public class BookRestController {
         }
     }
     
-    @PatchMapping("/book/{id}")
+    @PatchMapping("{id}")
     public BookEntity patchBook(@PathVariable Long id, @RequestBody BookEntity book){
         BookEntity bookToUpdate = repository.findById(id).get();
         if(book.getIsbn() != null ){
@@ -79,6 +90,7 @@ public class BookRestController {
         if(book.getDescription() != null){
             bookToUpdate.setDescription(book.getDescription());
         }
+        bookToUpdate.setAvailable(book.isAvailable());
         return repository.save(bookToUpdate);
     }
 }
