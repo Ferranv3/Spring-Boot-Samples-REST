@@ -1,4 +1,4 @@
-package com.example.demo.library;
+package com.example.demo.library.book;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
@@ -8,5 +8,4 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
   BookEntity findByIsbn(long isbn);
   List<BookEntity> findByTitle(String title);
   List<BookEntity> findByAuthor(String author);
-  List<BookEntity> findByAvailable(boolean available);
 }

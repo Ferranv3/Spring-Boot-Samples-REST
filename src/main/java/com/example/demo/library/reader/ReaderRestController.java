@@ -1,4 +1,7 @@
-package com.example.demo.library;
+package com.example.demo.library.reader;
+
+import com.example.demo.library.book.BookEntity;
+import com.example.demo.library.book.BookRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/library/readers")
+@RequestMapping("/api/v1/readers")
 public class ReaderRestController {
     @Autowired
     private ReaderRepository readerRepository;
@@ -30,10 +33,9 @@ public class ReaderRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReaderEntity> getById(@PathVariable Long id){
+    public ResponseEntity<ReaderEntity> getReaderById(@PathVariable Long id){
         try{
-            ReaderEntity reader = readerRepository.findById(id).get();
-            return new ResponseEntity<ReaderEntity>(reader, HttpStatus.ACCEPTED);
+            return new ResponseEntity<ReaderEntity>(readerRepository.findById(id).get(), HttpStatus.ACCEPTED);
         }catch(Exception e){
             return new ResponseEntity<ReaderEntity>(new ReaderEntity(), HttpStatus.BAD_REQUEST);
         }
@@ -52,7 +54,7 @@ public class ReaderRestController {
         readerToUpdate.setFirstName(reader.getFirstName());
         readerToUpdate.setLastName(reader.getLastName());
         readerToUpdate.setLastName(reader.getLastName());
-        readerToUpdate.setBooks(reader.getBooks());
+        //readerToUpdate.setBooks(reader.getBooks());
         return readerRepository.save(readerToUpdate);
     }
 
@@ -75,8 +77,8 @@ public class ReaderRestController {
             try{
                 BookEntity newbook = bookRepository.findById(Long.parseLong(bookId));
                 if(newbook != null){
-                    readerToUpdate.addBook(newbook);
-                    newbook.setUser(readerToUpdate);
+                    //readerToUpdate.addBook(newbook);
+                    //newbook.setUser(readerToUpdate);
                     bookRepository.save(newbook);
                 }
             }catch(Exception e){

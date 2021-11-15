@@ -1,15 +1,19 @@
-package com.example.demo.library;
+package com.example.demo.library.book;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.demo.library.transaction.TransactionEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "book")
@@ -21,23 +25,27 @@ public class BookEntity {
     private Long isbn;
     private String title;
     private String author;
+    
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
-    private boolean available;
 
-    @ManyToOne()
-    //@JsonIgnore
-    @JsonBackReference
-    @JoinColumn(name = "reader_id")
-    private ReaderEntity user;
+    @JsonIgnore
+    @OneToMany(
+        mappedBy = "book", 
+        cascade = CascadeType.ALL, 
+        fetch = javax.persistence.FetchType.LAZY,
+        orphanRemoval = true)
+    private List<TransactionEntity> transactions;
 
-    public BookEntity(){}
+    public BookEntity(){
+        this.transactions = new java.util.ArrayList<TransactionEntity>();
+    }
 
-    public BookEntity(Long isbn, String title, String author, String description, boolean available){
+    public BookEntity(Long isbn, String title, String author, String description){
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.description = description;
-        this.available = available;
     }
 
     public void setIsbn(Long isbn){
@@ -56,13 +64,13 @@ public class BookEntity {
         this.description = description;
     }
 
-    public void setAvailable(boolean available){
-        this.available = available;
+    public void setTransactions(List<TransactionEntity> transactions){
+        this.transactions = transactions;
     }
 
-    public void setUser(ReaderEntity user){
-        this.user = user;
-    }
+    /*public void setLibrary(LibraryEntity library){
+        this.library = library;
+    }*/
 
     public Long getId(){
         return this.id;
@@ -84,13 +92,13 @@ public class BookEntity {
         return this.description;
     }
 
-    public boolean isAvailable(){
-        return user == null;
+    public List<TransactionEntity> getTransactions(){
+        return this.transactions;
     }
 
-    public ReaderEntity getUser(){
-        return this.user;
-    }
+    /*public LibraryEntity getLibrary(){
+        return this.library;
+    }*/
 
     @Override
     public String toString() {
@@ -100,8 +108,6 @@ public class BookEntity {
                 ", title='" + this.title + '\'' +
                 ", author='" + this.author + '\'' +
                 ", description='" + this.description  + '\'' +
-                ", description='" + this.isAvailable()  + '\'' +
                 '}';
-
     }
 }

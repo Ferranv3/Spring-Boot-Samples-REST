@@ -1,4 +1,4 @@
-package com.example.demo.library;
+package com.example.demo.library.book;
 
 public class BookResponse {
     private Long id;
@@ -6,17 +6,15 @@ public class BookResponse {
     private String title;
     private String author;
     private String description;
-    private boolean available;
 
     public BookResponse(){}
 
-    public BookResponse(Long id, Long isbn, String title, String author, String description, boolean available){
+    public BookResponse(Long id, Long isbn, String title, String author, String description){
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.description = description;
-        this.available = available;
     }
 
     public void setId(Long id){
@@ -39,10 +37,6 @@ public class BookResponse {
         this.description = description;
     }
 
-    public void setAvailable(boolean available){
-        this.available = available;
-    }
-
     public Long getId(){
         return this.id;
     }
@@ -61,9 +55,5 @@ public class BookResponse {
 
     public String getDescription(){
         return this.description;
-    }
-
-    public boolean isAvailable(){
-        return this.available;
     }
 }

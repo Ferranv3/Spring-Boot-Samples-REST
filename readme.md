@@ -3,8 +3,11 @@ It contains a Spring Boot back-end with many endpoints. A calculator, a Nasa ima
 
 ## Endpoints
 ### API Rest
-* http://localhost:8080/api/v1/library/books
-* http://localhost:8080/api/v1/library/readers
+There is a PostMan collection file exported in root folder. You can import to easily testing API.
+* http://localhost:8080/api/v1/books/
+* http://localhost:8080/api/v1/readers/
+* http://localhost:8080/api/v1/transaction/
+* http://localhost:8080/api/v1/libraries/
 
 ### API
 * http://localhost:8080/greeting?nombre=Ferran&&edad=28
