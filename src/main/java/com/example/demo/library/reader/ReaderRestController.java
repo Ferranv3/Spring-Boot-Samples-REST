@@ -70,7 +70,7 @@ public class ReaderRestController {
     }
     
     @PatchMapping("{id}")
-    public ResponseEntity<ReaderEntity> patchBook(@PathVariable Long id, @RequestBody ReaderEntity reader, 
+    public ResponseEntity<ReaderEntity> patchReader(@PathVariable Long id, @RequestBody ReaderEntity reader, 
                         @RequestParam(name="book_id", required = true, defaultValue = "") String bookId){
         ReaderEntity readerToUpdate = readerRepository.findById(id).get();
         if(bookId != null && !bookId.isEmpty()){

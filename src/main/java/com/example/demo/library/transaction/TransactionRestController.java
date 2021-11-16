@@ -75,7 +75,7 @@ public class TransactionRestController {
     
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public TransactionEntity updateBook(@PathVariable Long id, @RequestBody TransactionEntity transaction){
+    public TransactionEntity updateTransaction(@PathVariable Long id, @RequestBody TransactionEntity transaction){
         TransactionEntity transactionToUpdate = transactionRepository.findById(id).get();
         transactionToUpdate.setTransactionDate(transaction.getTransactionDate());
         transactionToUpdate.setStatusDate(transaction.getStatusDate());
@@ -86,7 +86,7 @@ public class TransactionRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteBook(@PathVariable Long id){
+    public ResponseEntity<Long> deleteTransaction(@PathVariable Long id){
         try{
             transactionRepository.deleteById(id);
             return new ResponseEntity<Long>(id, HttpStatus.ACCEPTED);
@@ -97,7 +97,7 @@ public class TransactionRestController {
     }
     
     @PatchMapping("{id}")
-    public TransactionEntity patchBook(@PathVariable Long id, @RequestBody TransactionEntity transaction){
+    public TransactionEntity patchTransaction(@PathVariable Long id, @RequestBody TransactionEntity transaction){
         TransactionEntity transactionToUpdate = transactionRepository.findById(id).get();
         if(transaction.getTransactionDate() != null ){
             transactionToUpdate.setTransactionDate(transaction.getTransactionDate());

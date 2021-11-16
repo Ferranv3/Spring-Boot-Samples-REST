@@ -1,44 +1,20 @@
-package com.example.demo.beer;
+package com.example.demo.beer.beers;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.example.demo.beer.purchases.PurchaseEntity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity
-@Table(name = "beer")
-public class BeerEntity {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-    
+public class BeerResponse {
+    private long id;
     private String name;
     private String firstBrewed;
-
-    @Column(columnDefinition = "LONGTEXT")
     private String description;
-
     private String imageUrl;
     private float abv;
-
-    @JsonIgnore
-    @OneToMany(
-        mappedBy = "beer", 
-        cascade = CascadeType.ALL, 
-        fetch = javax.persistence.FetchType.LAZY,
-        orphanRemoval = true)
     private List<PurchaseEntity> purchases;
 
-    public BeerEntity(){}
+    public BeerResponse(){}
 
-    public BeerEntity(int id, String name, String firstBrewed, String description, String imageUrl,float abv){
+    public BeerResponse(long id, String name, String firstBrewed, String description, String imageUrl,float abv){
         this.id = id;
         this.name = name;
         this.firstBrewed = firstBrewed;
@@ -71,7 +47,7 @@ public class BeerEntity {
         this.purchases = purchases;
     }
 
-    public int getId(){
+    public long getId(){
         return this.id;
     }
 

@@ -1,4 +1,4 @@
-package com.example.demo.beer;
+package com.example.demo.beer.pubs;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,19 +9,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.example.demo.beer.purchases.PurchaseEntity;
 
 @Entity
 @Table(name = "pub")
 public class PubEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
     
     private String name;
     private String city;
 
-    @JsonManagedReference
     @OneToMany(
         mappedBy = "pub", 
         cascade = CascadeType.ALL, 
@@ -31,7 +30,7 @@ public class PubEntity {
     
     public PubEntity(){}
 
-    public PubEntity(int id,String name,String city){
+    public PubEntity(long id,String name,String city){
         this.id = id;
         this.name = name;
         this.city = city;
@@ -49,7 +48,7 @@ public class PubEntity {
         this.purchases = purchases;
     }
 
-    public int getId(){
+    public long getId(){
         return this.id;
     }
 
@@ -67,10 +66,14 @@ public class PubEntity {
 
     @Override
     public String toString() {
+        String myPurchases = this.purchases.stream()
+            .map(purchase -> purchase.toString())
+            .reduce("", (acc, title) -> acc + title + ", ");
         return "PubEntity{" +
                 "id=" + this.id +
                 ", name='" + this.name + '\'' +
                 ", city='" + this.city + '\'' +
+                ", purchases='" + myPurchases + '\'' +
                 '}';
     }
 }

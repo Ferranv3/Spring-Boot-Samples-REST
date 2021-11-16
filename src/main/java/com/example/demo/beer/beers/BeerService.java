@@ -1,4 +1,4 @@
-package com.example.demo.beer;
+package com.example.demo.beer.beers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +22,13 @@ public class BeerService {
             this.repository.save(beer);
         }
         return this.repository.findAll();
+    }
+
+    public void saveAllBeers(){
+        BeerResponse[] beersResponse = restTemplate.getForObject("https://api.punkapi.com/v2/beers", BeerResponse[].class);
+        for (BeerResponse beerResponse : beersResponse) {
+            BeerEntity beer = new BeerEntity(beerResponse.getId(), beerResponse.getName(), beerResponse.getFirstBrewed(), beerResponse.getDescription(), beerResponse.getImageUrl(), beerResponse.getAbv());
+            this.repository.save(beer);
+        }
     }
 }

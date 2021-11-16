@@ -1,44 +1,26 @@
-package com.example.demo.beer;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+package com.example.demo.beer.purchases;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.example.demo.beer.beers.BeerEntity;
+import com.example.demo.beer.pubs.PubEntity;
 
-@Entity
-public class PurchaseEntity {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+public class PurchaseResponse {
     private int id;
-    
-    @JsonProperty("purchase_date")
     private String purchaseDate;
     private String price;
     private String status;
-
-    @ManyToOne()
-    @JsonBackReference
-    @JoinColumn(name = "beer_id")
     private BeerEntity beer;
-
-    @ManyToOne()
-    @JoinColumn(name = "pub_id")
     private PubEntity pub;
 
-    public PurchaseEntity(){}
+    public PurchaseResponse(){}
 
-    public PurchaseEntity(int id,String purchaseDate,String price, String status){
+    public PurchaseResponse(int id,String purchaseDate,String price, String status){
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
     }
 
-    public PurchaseEntity(int id,String purchaseDate,String price, String status, BeerEntity beer, PubEntity pub){
+    public PurchaseResponse(int id,String purchaseDate,String price, String status, BeerEntity beer, PubEntity pub){
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.price = price;
@@ -93,7 +75,7 @@ public class PurchaseEntity {
 
     @Override
     public String toString() {
-        return "PubEntity{" +
+        return "PurchaseResponse{" +
                 "id=" + this.id +
                 ", purchaseDate='" + this.purchaseDate + '\'' +
                 ", price='" + this.price + '\'' +

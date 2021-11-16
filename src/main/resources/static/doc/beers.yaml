@@ -398,7 +398,7 @@ components:
           format: float
         purchases:
           type: array
-          example: [{"id":"1", "transactionDate":"2021/11/15"}]
+          example: [{"id":"1", "purchaseDate":"2021/11/15"}]
     BeerArray:
       type: array
       items:
@@ -408,10 +408,10 @@ components:
       properties:
         name:
           type: string
-          example: Paco
+          example: "Punto Estrella"
         city:
           type: string
-          example: Martinez
+          example: "Lleida"
     Pub:
       type: object
       properties:
@@ -423,10 +423,10 @@ components:
           example: "Bar Paco"
         city:
           type: string
-          example: Martinez
+          example: "Barcelona"
         purchases:
           type: array
-          example: [{"id":"1", "transactionDate":"2021/11/15"}]
+          example: [{"id":"1", "purchaseDate":"2021/11/15"}]
     PubArray:
       type: array
       items:

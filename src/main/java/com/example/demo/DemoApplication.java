@@ -1,7 +1,13 @@
 package com.example.demo;
 
+import java.util.List;
+
 import com.example.demo.astro.AstroPicEntity;
 import com.example.demo.astro.AstroPicRepository;
+import com.example.demo.beer.beers.BeerEntity;
+import com.example.demo.beer.beers.BeerRepository;
+import com.example.demo.beer.beers.BeerResponse;
+import com.example.demo.beer.beers.BeerService;
 import com.example.demo.customer.CustomerEntity;
 import com.example.demo.customer.CustomerRepository;
 
@@ -22,7 +28,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	  @Bean
+	  /*@Bean
   	public CommandLineRunner demo(CustomerRepository repository) {
     return (args) -> {
       // save a few customers
@@ -56,7 +62,7 @@ public class DemoApplication {
       // }
       log.info("");
     };
-  }
+  }*/
 
   /*@Bean
   	public CommandLineRunner demo(AstroPicRepository repository) {
@@ -85,5 +91,16 @@ public class DemoApplication {
   @Bean
   public RestTemplate getRestTemplate(){
     return new RestTemplate();
+  }
+
+  @Bean
+  public CommandLineRunner demo(BeerRepository repository){
+    return (args) -> {
+      BeerResponse[] beersResponse = new RestTemplate().getForObject("https://api.punkapi.com/v2/beers", BeerResponse[].class);
+        for (BeerResponse beerResponse : beersResponse) {
+            BeerEntity beer = new BeerEntity(beerResponse.getName(), beerResponse.getFirstBrewed(), beerResponse.getDescription(), beerResponse.getImageUrl(), beerResponse.getAbv());
+            repository.save(beer);
+        }
+    };
   }
 }
