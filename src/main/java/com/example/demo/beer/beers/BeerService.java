@@ -2,6 +2,7 @@ package com.example.demo.beer.beers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -31,4 +32,21 @@ public class BeerService {
             this.repository.save(beer);
         }
     }
+
+    public Iterable<BeerEntity> getFilteredBeers(String abvGt, String abvLt) {
+        if (abvGt.isEmpty() && abvLt.isEmpty()) {
+            return repository.findAll();
+        } else if (abvGt.isEmpty() && !abvLt.isEmpty()) {
+            double abvLtDouble = Double.parseDouble(abvLt);
+            return repository.findByAbvLessThan(abvLtDouble);
+        } else if (!abvGt.isEmpty() && abvLt.isEmpty()) {
+            double abvGtDouble = Double.parseDouble(abvGt);
+            return repository.findByAbvGreaterThan(abvGtDouble);
+        } else if (!abvGt.isEmpty() && !abvLt.isEmpty()) {
+            double abvGtDouble = Double.parseDouble(abvGt);
+            double abvLtDouble = Double.parseDouble(abvLt);
+            return repository.findByAbvGreaterThanAndAbvLessThan(abvGtDouble, abvLtDouble);
+        }
+        return repository.findAll();   
+     }
 }

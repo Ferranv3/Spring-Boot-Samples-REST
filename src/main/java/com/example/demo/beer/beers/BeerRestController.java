@@ -25,15 +25,19 @@ public class BeerRestController {
     @Autowired
     private BeerRepository repository;
 
+    @Autowired
+    private BeerService service;
+
     @GetMapping("")
-    public Iterable<BeerResponse> getAllBeers(
+    public Iterable<BeerEntity> getAllBeers(
         @RequestParam(name="abv1", required=false, defaultValue = "") String abv1,
         @RequestParam(name="abv2", required=false, defaultValue = "") String abv2){
 
-            Iterable<BeerResponse> beers = StreamSupport.stream(repository.findAll().spliterator(), false)
+            /*Iterable<BeerResponse> beers = StreamSupport.stream(repository.findAll().spliterator(), false)
             .map(beer -> new BeerResponse(beer.getId(),beer.getName(), beer.getFirstBrewed(), beer.getDescription(), beer.getImageUrl(), beer.getAbv()))
             .collect(Collectors.toList());
-            return beers;
+            return beers;*/
+            return service.getFilteredBeers(abv1, abv2);
     }
 
     @GetMapping("/{id}")
