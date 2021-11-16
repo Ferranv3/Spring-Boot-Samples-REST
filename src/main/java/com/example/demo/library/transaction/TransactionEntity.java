@@ -39,7 +39,6 @@ public class TransactionEntity {
     private ReaderEntity reader;
 
     @ManyToOne()
-    //@JsonIgnore
     @JoinColumn(name = "book_id")
     private BookEntity book;
 

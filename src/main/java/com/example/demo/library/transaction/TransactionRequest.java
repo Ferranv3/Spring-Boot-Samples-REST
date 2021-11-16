@@ -16,7 +16,7 @@ public class TransactionRequest {
     @JsonProperty("status")
     private String status;
 
-    @JsonProperty("user_id")
+    @JsonProperty("reader_id")
     private String userId;
 
     @JsonProperty("book_id")
