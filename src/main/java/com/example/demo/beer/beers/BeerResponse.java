@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.Column;
 
 import com.example.demo.beer.purchases.PurchaseEntity;
+import com.example.demo.beer.stock.BeerStockEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BeerResponse {
@@ -20,7 +21,7 @@ public class BeerResponse {
     private String imageUrl;
 
     private float abv;
-    private List<PurchaseEntity> purchases;
+    private BeerStockEntity beerStock;
 
     public BeerResponse(){}
 
@@ -53,8 +54,8 @@ public class BeerResponse {
         this.abv = abv;
     }
 
-    public void setPurchases(List<PurchaseEntity> purchases){
-        this.purchases = purchases;
+    public void setPurchases(BeerStockEntity beerStock){
+        this.beerStock = beerStock;
     }
 
     public long getId(){
@@ -81,15 +82,12 @@ public class BeerResponse {
         return this.abv;
     }
 
-    public void addPurchase(PurchaseEntity purchase){
-        this.purchases.add(purchase);
+    public BeerStockEntity getBeerStock(){
+        return this.beerStock;
     }
 
     @Override
     public String toString() {
-        String myPurchases = this.purchases.stream()
-            .map(purchase -> purchase.toString())
-            .reduce("", (acc, title) -> acc + title + ", ");
         return "LibraryUserEntity{" +
                 "id=" + this.id +
                 ", name='" + this.name + '\'' +
@@ -97,7 +95,7 @@ public class BeerResponse {
                 ", imageUrl='" + this.imageUrl + '\'' +
                 ", abv='" + this.abv + '\'' +
                 ", description='" + this.description + '\'' +
-                ", purchases=" + myPurchases +
+                ", beerStock=" + this.beerStock +
                 '}';
     }
 }

@@ -29,7 +29,12 @@ tags:
     description: Find out more
     url: http://swagger.io
 - name: purchases
-  description: Everything about libraries.
+  description: Everything about purchases.
+  externalDocs:
+    description: Find out more
+    url: http://swagger.io
+- name: storages
+  description: Everything about storages.
   externalDocs:
     description: Find out more
     url: http://swagger.io
@@ -355,6 +360,113 @@ paths:
         202:
           description: removed element
           content: {}
+  /storages:
+    get:
+      tags:
+      - storages
+      summary: Find all storages
+      description: Returns storage list
+      operationId: getAllStorages
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageArray'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/StorageArray'
+    post:
+      tags:
+      - storages
+      summary: Save a new storage to the list
+      description: this is a description
+      operationId: addStorages
+      requestBody:
+        description: storage object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageRequest'
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Storage'
+      x-codegen-request-body-name: purchase
+  /storages/{storageID}:
+    get:
+      tags:
+      - storages
+      summary: Find a storage by Id
+      description: Returns storage
+      operationId: getStorageById
+      parameters:
+      - name: storageID
+        in: path
+        description: ID of purchase
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Storage'
+    put:
+      tags:
+      - storages
+      summary: Save or update a storage by Id
+      description: Update description
+      operationId: updateStorageById
+      parameters:
+      - name: storageID
+        in: path
+        description: ID of storage
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Updated storage object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageRequest'
+        required: true
+      responses:
+        202:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Storage'
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - storages
+      summary: Delete a storage
+      description: Delete description
+      operationId: deleteStorageById
+      parameters:
+      - name: storageID
+        in: path
+        description: ID of storage
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        202:
+          description: removed element
+          content: {}
 components:
   schemas:
     BeerRequest:
@@ -477,19 +589,22 @@ components:
     StorageRequest:
       type: object
       properties:
-        purchase_date:
-          type: string
-          example: "2021-11-16"
-        price:
+        id:
           type: integer
-          format: float
-        status:
+          format: int64
+        name:
           type: string
-          example: "Pending"
-        reader_id:
+          example: "Almacen 1"
+        city:
+          type: string
+          example: "Madrid"
+        beer_id:
           type: string
           example: "1"
-        book_id:
+        cantity:
+          type: integer
+          format: int64
+        pub_id:
           type: string
           example: "1"
     Storage:
@@ -504,13 +619,26 @@ components:
         city:
           type: string
           example: "Madrid"
-        beers:
+        BeerStock:
           type: array
-          example: [{"id":"1", "name":"Estrella"}]
+          example: [{{"id":"1", "name":"Estrella"}, "cantity":30}]
         pubs:
           type: array
           example: [{"id":"1", "name":"Bar Paco"}]
     StorageArray:
       type: array
       items:
-        $ref: '#/components/schemas/Purchase'
+        $ref: '#/components/schemas/Storage'
+    BeerStock:
+      type: object
+      properties:
+        beers:
+          type: array
+          example: [{"id":"1", "name":"Estrella"}]
+        cantity:
+          type: integer
+          format: int64
+    BeerStockArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/BeerStock'

@@ -48,7 +48,7 @@ public class PurchaseRestController {
         return new PurchaseResponse(purchase.getId(),purchase.getPurchaseDate(), purchase.getPrice(), purchase.getStatus(), purchase.getCantity(), purchase.getBeer(), purchase.getPub());
     }
 
-    @PostMapping("")
+    /*@PostMapping("")
     @ResponseStatus(value = HttpStatus.CREATED)
     public PurchaseEntity createPurchase(@RequestBody PurchaseRequest purchase){
         try {
@@ -108,5 +108,5 @@ public class PurchaseRestController {
             purchaseToUpdate.setPub(purchase.getPub());
         }
         return purchaseRepository.save(purchaseToUpdate);
-    }
+    }*/
 }

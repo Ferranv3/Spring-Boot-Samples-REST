@@ -1,17 +1,22 @@
 package com.example.demo.beer.purchases;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import com.example.demo.beer.beers.BeerEntity;
+import com.example.demo.beer.stock.BeerStockEntity;
 import com.example.demo.beer.pubs.PubEntity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
+@Table(name = "purchase")
 public class PurchaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,10 +28,11 @@ public class PurchaseEntity {
     private String status;
     private int cantity;
 
-    @ManyToOne()
-    @JsonBackReference
-    @JoinColumn(name = "beer_id")
-    private BeerEntity beer;
+    @OneToMany(
+        mappedBy = "purchase", 
+        cascade = CascadeType.ALL, 
+        fetch = javax.persistence.FetchType.LAZY)
+    private List<BeerStockEntity> beerStock;
 
     @ManyToOne()
     @JoinColumn(name = "pub_id")
@@ -41,12 +47,12 @@ public class PurchaseEntity {
         this.cantity = cantity;
     }
 
-    public PurchaseEntity(String purchaseDate,String price, String status, int cantity, BeerEntity beer, PubEntity pub){
+    public PurchaseEntity(String purchaseDate,String price, String status, int cantity, List<BeerStockEntity> beerStock, PubEntity pub){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
         this.cantity = cantity;
-        this.beer = beer;
+        this.beerStock = beerStock;
         this.pub = pub;
     }
 
@@ -66,8 +72,8 @@ public class PurchaseEntity {
         this.cantity = cantity;
     }
 
-    public void setBeer(BeerEntity beer){
-        this.beer = beer;
+    public void setBeer(List<BeerStockEntity> beerStock){
+        this.beerStock = beerStock;
     }
 
     public void setPub(PubEntity pub){
@@ -94,8 +100,8 @@ public class PurchaseEntity {
         return this.cantity;
     }
 
-    public BeerEntity getBeer(){
-        return this.beer;
+    public List<BeerStockEntity> getBeer(){
+        return this.beerStock;
     }
 
     public PubEntity getPub(){
@@ -104,13 +110,16 @@ public class PurchaseEntity {
 
     @Override
     public String toString() {
+        String myBeerStock = this.beerStock.stream()
+            .map(beer -> beer.toString())
+            .reduce("", (acc, title) -> acc + title + ", ");
         return "PurchaseEntity{" +
                 "id=" + this.id +
                 ", purchaseDate='" + this.purchaseDate + '\'' +
                 ", price='" + this.price + '\'' +
                 ", cantity='" + this.cantity + '\'' +
                 ", status='" + this.status + '\'' +
-                ", beer='" + this.beer + '\'' +
+                ", beerStock='" + myBeerStock + '\'' +
                 ", pub='" + this.pub + '\'' +
                 '}';
     }

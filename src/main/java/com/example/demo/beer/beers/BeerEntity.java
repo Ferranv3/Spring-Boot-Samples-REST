@@ -7,10 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.demo.beer.purchases.PurchaseEntity;
+import com.example.demo.beer.stock.BeerStockEntity;
+import com.example.demo.beer.storages.StorageEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -29,12 +34,10 @@ public class BeerEntity {
     private String imageUrl;
     private float abv;
 
-    @JsonIgnore
-    @OneToMany(
-        mappedBy = "beer", 
-        cascade = CascadeType.ALL, 
-        fetch = javax.persistence.FetchType.LAZY)
-    private List<PurchaseEntity> purchases;
+    @ManyToOne()
+    @JsonBackReference
+    @JoinColumn(name = "beerstock_id")
+    private BeerStockEntity beerStock;
 
     public BeerEntity(){}
 
@@ -53,6 +56,16 @@ public class BeerEntity {
         this.description = description;
         this.imageUrl = imageUrl;
         this.abv = abv;
+    }
+
+    public BeerEntity(long id, String name, String firstBrewed, String description, String imageUrl, float abv, BeerStockEntity beerStock){
+        this.id = id;
+        this.name = name;
+        this.firstBrewed = firstBrewed;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.abv = abv;
+        this.beerStock = beerStock;
     }
 
     public void setName(String name){
@@ -75,8 +88,8 @@ public class BeerEntity {
         this.abv = abv;
     }
 
-    public void setPurchases(List<PurchaseEntity> purchases){
-        this.purchases = purchases;
+    public void setBeerStock(BeerStockEntity beerStock){
+        this.beerStock = beerStock;
     }
 
     public long getId(){
@@ -103,15 +116,12 @@ public class BeerEntity {
         return this.abv;
     }
 
-    public void addPurchase(PurchaseEntity purchase){
-        this.purchases.add(purchase);
+    public BeerStockEntity getBeerStock(){
+        return this.beerStock;
     }
 
     @Override
     public String toString() {
-        String myPurchases = this.purchases.stream()
-            .map(purchase -> purchase.toString())
-            .reduce("", (acc, title) -> acc + title + ", ");
         return "LibraryUserEntity{" +
                 "id=" + this.id +
                 ", name='" + this.name + '\'' +
@@ -119,7 +129,7 @@ public class BeerEntity {
                 ", imageUrl='" + this.imageUrl + '\'' +
                 ", abv='" + this.abv + '\'' +
                 ", description='" + this.description + '\'' +
-                ", purchases=" + myPurchases +
+                ", beerStock=" + this.beerStock +
                 '}';
     }
 }

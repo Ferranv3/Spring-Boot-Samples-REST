@@ -1,34 +1,35 @@
 package com.example.demo.beer.purchases;
 
+import java.util.List;
+
 import com.example.demo.beer.beers.BeerEntity;
 import com.example.demo.beer.pubs.PubEntity;
+import com.example.demo.beer.stock.BeerStockEntity;
 
 public class PurchaseResponse {
-    private int id;
+    private long id;
     private String purchaseDate;
     private String price;
     private String status;
     private int cantity;
-    private BeerEntity beer;
+    private List<BeerStockEntity> beerStock;
     private PubEntity pub;
 
     public PurchaseResponse(){}
 
-    public PurchaseResponse(int id,String purchaseDate,String price, String status, int cantity){
-        this.id = id;
+    public PurchaseResponse(String purchaseDate,String price, String status, int cantity){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
         this.cantity = cantity;
     }
 
-    public PurchaseResponse(int id,String purchaseDate,String price, String status, int cantity, BeerEntity beer, PubEntity pub){
-        this.id = id;
+    public PurchaseResponse(long id, String purchaseDate,String price, String status, int cantity, List<BeerStockEntity> beerStock, PubEntity pub){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
         this.cantity = cantity;
-        this.beer = beer;
+        this.beerStock = beerStock;
         this.pub = pub;
     }
 
@@ -48,15 +49,15 @@ public class PurchaseResponse {
         this.cantity = cantity;
     }
 
-    public void setBeer(BeerEntity beer){
-        this.beer = beer;
+    public void setBeer(List<BeerStockEntity> beerStock){
+        this.beerStock = beerStock;
     }
 
     public void setPub(PubEntity pub){
         this.pub = pub;
     }
 
-    public int getId(){
+    public long getId(){
         return this.id;
     }
 
@@ -76,8 +77,8 @@ public class PurchaseResponse {
         return this.cantity;
     }
 
-    public BeerEntity getBeer(){
-        return this.beer;
+    public List<BeerStockEntity> getBeer(){
+        return this.beerStock;
     }
 
     public PubEntity getPub(){
@@ -86,13 +87,16 @@ public class PurchaseResponse {
 
     @Override
     public String toString() {
-        return "PurchaseResponse{" +
+        String myBeerStock = this.beerStock.stream()
+            .map(beer -> beer.toString())
+            .reduce("", (acc, title) -> acc + title + ", ");
+        return "PurchaseEntity{" +
                 "id=" + this.id +
                 ", purchaseDate='" + this.purchaseDate + '\'' +
                 ", price='" + this.price + '\'' +
                 ", cantity='" + this.cantity + '\'' +
                 ", status='" + this.status + '\'' +
-                ", beer='" + this.beer + '\'' +
+                ", beerStock='" + myBeerStock + '\'' +
                 ", pub='" + this.pub + '\'' +
                 '}';
     }

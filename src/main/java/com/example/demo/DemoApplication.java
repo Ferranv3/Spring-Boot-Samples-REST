@@ -93,7 +93,7 @@ public class DemoApplication {
     return new RestTemplate();
   }
 
-  @Bean
+  /*@Bean
   public CommandLineRunner demo(BeerRepository repository){
     return (args) -> {
       BeerResponse[] beersResponse = new RestTemplate().getForObject("https://api.punkapi.com/v2/beers", BeerResponse[].class);
@@ -102,5 +102,5 @@ public class DemoApplication {
             repository.save(beer);
         }
     };
-  }
+  }*/
 }
