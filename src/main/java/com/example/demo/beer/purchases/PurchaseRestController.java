@@ -1,6 +1,5 @@
 package com.example.demo.beer.purchases;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -53,12 +52,12 @@ public class PurchaseRestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public PurchaseEntity createPurchase(@RequestBody PurchaseRequest purchase){
         try {
-            BeerEntity beer = this.beerRepository.findById(Long.valueOf(purchase.getBeer().getId())).get();
-            PubEntity user = this.pubRepository.findById(Long.valueOf(purchase.getPub().getId())).get();
+            BeerEntity beer = this.beerRepository.findById(Long.valueOf(purchase.getBeerID())).get();
+            PubEntity user = this.pubRepository.findById(Long.valueOf(purchase.getPubID())).get();
 
-            PurchaseEntity newPurchase = 
-            new PurchaseEntity(purchase.getPurchaseDate(), purchase.getPrice(), purchase.getStatus(), beer, user);
-                return purchaseRepository.save(newPurchase);
+            PurchaseEntity newPurchase =  new PurchaseEntity(purchase.getPurchaseDate(), 
+                                                purchase.getPrice(), purchase.getStatus(), beer, user);
+            return purchaseRepository.save(newPurchase);
         } catch (Exception e) {
             return new PurchaseEntity();
         }

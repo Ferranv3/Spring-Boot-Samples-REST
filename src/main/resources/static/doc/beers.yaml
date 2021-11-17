@@ -276,7 +276,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PurchaseArray'
+              $ref: '#/components/schemas/PurchaseRequest'
         required: true
       responses:
         201:
@@ -434,21 +434,21 @@ components:
     PurchaseRequest:
       type: object
       properties:
-        transactionDate:
+        purchase_date:
           type: string
-          example: Paco
-        dueDate:
-          type: string
-          example: Martinez
+          example: "2021-11-16"
+        price:
+          type: integer
+          format: float
         status:
           type: string
-          example: email@elmail.com
+          example: "Pending"
         reader_id:
-          type: integer
-          format: int64
+          type: string
+          example: "1"
         book_id:
           type: string
-          format: int64
+          example: "1"
     Purchase:
       type: object
       properties:

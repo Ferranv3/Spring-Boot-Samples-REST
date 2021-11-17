@@ -4,6 +4,15 @@ It contains a Spring Boot back-end with many endpoints. A calculator, a Nasa ima
 ## Endpoints
 ### API Rest
 There is a PostMan collection file exported in root folder. You can import to easily testing API.
+
+#### Beers
+* Swagger documentation: http://localhost:8080/doc/beers.html
+* http://localhost:8080/api/v1/beers/
+* http://localhost:8080/api/v1/pubs/
+* http://localhost:8080/api/v1/purchases/
+
+#### Library
+* Swagger documentation: http://localhost:8080/doc/library.html
 * http://localhost:8080/api/v1/books/
 * http://localhost:8080/api/v1/readers/
 * http://localhost:8080/api/v1/transaction/

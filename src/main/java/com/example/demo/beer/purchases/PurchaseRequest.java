@@ -1,14 +1,19 @@
 package com.example.demo.beer.purchases;
 
-import com.example.demo.beer.beers.BeerEntity;
-import com.example.demo.beer.pubs.PubEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PurchaseRequest {
+    @JsonProperty("purchase_date")
     private String purchaseDate;
+
     private String price;
     private String status;
-    private BeerEntity beer;
-    private PubEntity pub;
+
+    @JsonProperty("beer_id")
+    private String beerID;
+
+    @JsonProperty("pub_id")
+    private String pubID;
 
     public PurchaseRequest(){}
 
@@ -18,12 +23,12 @@ public class PurchaseRequest {
         this.status = status;
     }
 
-    public PurchaseRequest(String purchaseDate,String price, String status, BeerEntity beer, PubEntity pub){
+    public PurchaseRequest(String purchaseDate,String price, String status, String beerID, String pubID){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
-        this.beer = beer;
-        this.pub = pub;
+        this.beerID = beerID;
+        this.pubID = pubID;
     }
 
     public void setPurchaseDate(String purchaseDate){
@@ -38,12 +43,12 @@ public class PurchaseRequest {
         this.status = status;
     }
 
-    public void setBeer(BeerEntity beer){
-        this.beer = beer;
+    public void setBeerID(String beerID){
+        this.beerID = beerID;
     }
 
-    public void setPub(PubEntity pub){
-        this.pub = pub;
+    public void setPubID(String pubID){
+        this.pubID = pubID;
     }
 
     public String getPurchaseDate(){
@@ -58,12 +63,12 @@ public class PurchaseRequest {
         return this.status;
     }
 
-    public BeerEntity getBeer(){
-        return this.beer;
+    public String getBeerID(){
+        return this.beerID;
     }
 
-    public PubEntity getPub(){
-        return this.pub;
+    public String getPubID(){
+        return this.pubID;
     }
 
     @Override
@@ -72,8 +77,8 @@ public class PurchaseRequest {
                 ", purchaseDate='" + this.purchaseDate + '\'' +
                 ", price='" + this.price + '\'' +
                 ", status='" + this.status + '\'' +
-                ", beer='" + this.beer + '\'' +
-                ", pub='" + this.pub + '\'' +
+                ", beer='" + this.beerID + '\'' +
+                ", pub='" + this.pubID + '\'' +
                 '}';
     }
 }
