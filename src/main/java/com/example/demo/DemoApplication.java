@@ -79,7 +79,7 @@ public class DemoApplication {
       "A Filament Leaps from the Sun", "video"));
       
       // fetch all customers
-      log.info("Customers found with findAll():");
+      log.info("AstroPics found with findAll():");
       log.info("-------------------------------");
       for (AstroPicEntity astro : repository.findAll()) {
         log.info(astro.toString());

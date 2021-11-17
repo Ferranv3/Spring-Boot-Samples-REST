@@ -1,9 +1,5 @@
 package com.example.demo.beer.beers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +28,6 @@ public class BeerRestController {
     public Iterable<BeerEntity> getAllBeers(
         @RequestParam(name="abv1", required=false, defaultValue = "") String abv1,
         @RequestParam(name="abv2", required=false, defaultValue = "") String abv2){
-
-            /*Iterable<BeerResponse> beers = StreamSupport.stream(repository.findAll().spliterator(), false)
-            .map(beer -> new BeerResponse(beer.getId(),beer.getName(), beer.getFirstBrewed(), beer.getDescription(), beer.getImageUrl(), beer.getAbv()))
-            .collect(Collectors.toList());
-            return beers;*/
             return service.getFilteredBeers(abv1, abv2);
     }
 

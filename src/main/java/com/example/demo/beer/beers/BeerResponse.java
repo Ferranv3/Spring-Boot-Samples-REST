@@ -1,14 +1,24 @@
 package com.example.demo.beer.beers;
 import java.util.List;
 
+import javax.persistence.Column;
+
 import com.example.demo.beer.purchases.PurchaseEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BeerResponse {
     private long id;
     private String name;
+
+    @JsonProperty("first_brewed")
     private String firstBrewed;
+
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
+
+    @JsonProperty("image_url")
     private String imageUrl;
+
     private float abv;
     private List<PurchaseEntity> purchases;
 
