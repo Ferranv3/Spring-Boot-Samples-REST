@@ -1,4 +1,4 @@
-# Demo application using Java Spring Boot Framework and Bootstrap
+# Demo API REST application using Java Spring Boot Framework and Bootstrap
 It contains a Spring Boot back-end with many endpoints. A calculator, a Nasa image viewer using an API Rest, a contact form and a collection of beers using an API Rest.
 
 ## API Rest
