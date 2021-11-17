@@ -21,6 +21,7 @@ public class PurchaseEntity {
     private String purchaseDate;
     private String price;
     private String status;
+    private int cantity;
 
     @ManyToOne()
     @JsonBackReference
@@ -33,16 +34,18 @@ public class PurchaseEntity {
 
     public PurchaseEntity(){}
 
-    public PurchaseEntity(String purchaseDate,String price, String status){
+    public PurchaseEntity(String purchaseDate,String price, String status, int cantity){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
+        this.cantity = cantity;
     }
 
-    public PurchaseEntity(String purchaseDate,String price, String status, BeerEntity beer, PubEntity pub){
+    public PurchaseEntity(String purchaseDate,String price, String status, int cantity, BeerEntity beer, PubEntity pub){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
+        this.cantity = cantity;
         this.beer = beer;
         this.pub = pub;
     }
@@ -57,6 +60,10 @@ public class PurchaseEntity {
 
     public void setStatus(String status){
         this.status = status;
+    }
+
+    public void setCantity(int cantity){
+        this.cantity = cantity;
     }
 
     public void setBeer(BeerEntity beer){
@@ -83,6 +90,10 @@ public class PurchaseEntity {
         return this.status;
     }
 
+    public int getCantity(){
+        return this.cantity;
+    }
+
     public BeerEntity getBeer(){
         return this.beer;
     }
@@ -97,6 +108,7 @@ public class PurchaseEntity {
                 "id=" + this.id +
                 ", purchaseDate='" + this.purchaseDate + '\'' +
                 ", price='" + this.price + '\'' +
+                ", cantity='" + this.cantity + '\'' +
                 ", status='" + this.status + '\'' +
                 ", beer='" + this.beer + '\'' +
                 ", pub='" + this.pub + '\'' +

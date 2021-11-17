@@ -37,7 +37,7 @@ public class PurchaseRestController {
     @GetMapping("")
     public Iterable<PurchaseResponse> getAllPurchases(){
         Iterable<PurchaseResponse> purchases = StreamSupport.stream(purchaseRepository.findAll().spliterator(), false)
-        .map(purchase -> new PurchaseResponse(purchase.getId(),purchase.getPurchaseDate(), purchase.getPrice(), purchase.getStatus(), purchase.getBeer(), purchase.getPub()))
+        .map(purchase -> new PurchaseResponse(purchase.getId(),purchase.getPurchaseDate(), purchase.getPrice(), purchase.getStatus(), purchase.getCantity(), purchase.getBeer(), purchase.getPub()))
         .collect(Collectors.toList());
         return purchases;
     }
@@ -45,7 +45,7 @@ public class PurchaseRestController {
     @GetMapping("/{id}")
     public PurchaseResponse getPurchaseById(@PathVariable Long id){
         PurchaseEntity purchase = purchaseRepository.findById(id).get();
-        return new PurchaseResponse(purchase.getId(),purchase.getPurchaseDate(), purchase.getPrice(), purchase.getStatus(), purchase.getBeer(), purchase.getPub());
+        return new PurchaseResponse(purchase.getId(),purchase.getPurchaseDate(), purchase.getPrice(), purchase.getStatus(), purchase.getCantity(), purchase.getBeer(), purchase.getPub());
     }
 
     @PostMapping("")
@@ -55,8 +55,7 @@ public class PurchaseRestController {
             BeerEntity beer = this.beerRepository.findById(Long.valueOf(purchase.getBeerID())).get();
             PubEntity user = this.pubRepository.findById(Long.valueOf(purchase.getPubID())).get();
 
-            PurchaseEntity newPurchase =  new PurchaseEntity(purchase.getPurchaseDate(), 
-                                                purchase.getPrice(), purchase.getStatus(), beer, user);
+            PurchaseEntity newPurchase =  new PurchaseEntity(purchase.getPurchaseDate(), purchase.getPrice(), purchase.getStatus(), purchase.getCantity(), beer, user);
             return purchaseRepository.save(newPurchase);
         } catch (Exception e) {
             return new PurchaseEntity();
@@ -70,6 +69,7 @@ public class PurchaseRestController {
         purchaseToUpdate.setPurchaseDate(purchase.getPurchaseDate());
         purchaseToUpdate.setPrice(purchase.getPrice());
         purchaseToUpdate.setStatus(purchase.getStatus());
+        purchaseToUpdate.setCantity(purchase.getCantity());
         purchaseToUpdate.setBeer(purchase.getBeer());
         purchaseToUpdate.setPub(purchase.getPub());
         return purchaseRepository.save(purchaseToUpdate);
@@ -97,6 +97,9 @@ public class PurchaseRestController {
         }
         if(purchase.getStatus() != null){
             purchaseToUpdate.setStatus(purchase.getStatus());
+        }
+        if(purchase.getCantity() > 0){
+            purchaseToUpdate.setCantity(purchase.getCantity());
         }
         if(purchase.getBeer() != null){
             purchaseToUpdate.setBeer(purchase.getBeer());

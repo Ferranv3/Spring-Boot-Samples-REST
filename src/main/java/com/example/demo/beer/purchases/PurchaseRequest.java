@@ -8,6 +8,7 @@ public class PurchaseRequest {
 
     private String price;
     private String status;
+    private int cantity;
 
     @JsonProperty("beer_id")
     private String beerID;
@@ -17,16 +18,18 @@ public class PurchaseRequest {
 
     public PurchaseRequest(){}
 
-    public PurchaseRequest(String purchaseDate,String price, String status){
+    public PurchaseRequest(String purchaseDate,String price, String status, int cantity){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
+        this.cantity = cantity;
     }
 
-    public PurchaseRequest(String purchaseDate,String price, String status, String beerID, String pubID){
+    public PurchaseRequest(String purchaseDate,String price, String status, int cantity, String beerID, String pubID){
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
+        this.cantity = cantity;
         this.beerID = beerID;
         this.pubID = pubID;
     }
@@ -41,6 +44,10 @@ public class PurchaseRequest {
 
     public void setStatus(String status){
         this.status = status;
+    }
+
+    public void setCantity(int cantity){
+        this.cantity = cantity;
     }
 
     public void setBeerID(String beerID){
@@ -63,6 +70,10 @@ public class PurchaseRequest {
         return this.status;
     }
 
+    public int getCantity(){
+        return this.cantity;
+    }
+
     public String getBeerID(){
         return this.beerID;
     }
@@ -76,6 +87,7 @@ public class PurchaseRequest {
         return "PurchaseRequest{" +
                 ", purchaseDate='" + this.purchaseDate + '\'' +
                 ", price='" + this.price + '\'' +
+                ", cantity='" + this.cantity + '\'' +
                 ", status='" + this.status + '\'' +
                 ", beer='" + this.beerID + '\'' +
                 ", pub='" + this.pubID + '\'' +

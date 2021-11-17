@@ -474,3 +474,43 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Purchase'
+    StorageRequest:
+      type: object
+      properties:
+        purchase_date:
+          type: string
+          example: "2021-11-16"
+        price:
+          type: integer
+          format: float
+        status:
+          type: string
+          example: "Pending"
+        reader_id:
+          type: string
+          example: "1"
+        book_id:
+          type: string
+          example: "1"
+    Storage:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: "Almacen 1"
+        city:
+          type: string
+          example: "Madrid"
+        beers:
+          type: array
+          example: [{"id":"1", "name":"Estrella"}]
+        pubs:
+          type: array
+          example: [{"id":"1", "name":"Bar Paco"}]
+    StorageArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Purchase'

@@ -8,23 +8,26 @@ public class PurchaseResponse {
     private String purchaseDate;
     private String price;
     private String status;
+    private int cantity;
     private BeerEntity beer;
     private PubEntity pub;
 
     public PurchaseResponse(){}
 
-    public PurchaseResponse(int id,String purchaseDate,String price, String status){
+    public PurchaseResponse(int id,String purchaseDate,String price, String status, int cantity){
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
+        this.cantity = cantity;
     }
 
-    public PurchaseResponse(int id,String purchaseDate,String price, String status, BeerEntity beer, PubEntity pub){
+    public PurchaseResponse(int id,String purchaseDate,String price, String status, int cantity, BeerEntity beer, PubEntity pub){
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.status = status;
+        this.cantity = cantity;
         this.beer = beer;
         this.pub = pub;
     }
@@ -39,6 +42,10 @@ public class PurchaseResponse {
 
     public void setStatus(String status){
         this.status = status;
+    }
+
+    public void setCantity(int cantity){
+        this.cantity = cantity;
     }
 
     public void setBeer(BeerEntity beer){
@@ -65,6 +72,10 @@ public class PurchaseResponse {
         return this.status;
     }
 
+    public int getCantity(){
+        return this.cantity;
+    }
+
     public BeerEntity getBeer(){
         return this.beer;
     }
@@ -79,6 +90,7 @@ public class PurchaseResponse {
                 "id=" + this.id +
                 ", purchaseDate='" + this.purchaseDate + '\'' +
                 ", price='" + this.price + '\'' +
+                ", cantity='" + this.cantity + '\'' +
                 ", status='" + this.status + '\'' +
                 ", beer='" + this.beer + '\'' +
                 ", pub='" + this.pub + '\'' +
