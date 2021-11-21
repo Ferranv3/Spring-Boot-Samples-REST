@@ -36,6 +36,11 @@ There is a PostMan collection file exported in root folder. You can import to ea
 * http://localhost:8080/beers
 * http://localhost:8080/form
 
+## Run Docker container
+Install docker in your computer and run in root folder:
+* docker build -t demoapp .
+* docker run -p 8080:8080 demoapp
+
 ## How to run in Windows
 Install scoop or cholocatey in Windows to easily the process.
 
