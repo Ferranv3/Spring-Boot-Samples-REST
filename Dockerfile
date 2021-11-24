@@ -1,4 +1,6 @@
+FROM maven as builder
+COPY . /app
+RUN cd /app && mvn package
 FROM openjdk:11
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY --from=builder /app/target/*.jar /opt/app.jar
+CMD java -jar /opt/app.jar
